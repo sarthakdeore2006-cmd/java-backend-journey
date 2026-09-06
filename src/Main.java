@@ -6,31 +6,14 @@ public class Main {
 
         Scanner scanner = new Scanner(System.in);
 
-        // Previous Task testing
-        Task task = new Task("Buy Groceries", "Milk");
-
-        System.out.println(task);
-
-        task.markComplete();
-
-        System.out.println(task);
 
         // TaskManager
         TaskManager manager = new TaskManager();
+        boolean running = true;
+        while (running) {
 
-        Task task1 = new Task("Study Java", "Learn ArrayList");
-        Task task2 = new Task("Programming", "Solve 2 problems");
 
-        manager.addTask(task1);
-        manager.addTask(task2);
 
-        manager.viewTasks();
-
-        manager.completeTask(0);
-
-        manager.deleteTask(1);
-
-        manager.viewTasks();
 
 
         // Menu
@@ -44,19 +27,47 @@ public class Main {
         System.out.print("Choose an option: ");
 
         int choice = scanner.nextInt();
+        scanner.nextLine();
 
         switch (choice) {
 
             case 1:
-                System.out.println("Add Task selected");
+                System.out.println("Enter task title:");
+                String title = scanner.nextLine();
+                System.out.println("Enter task description:");
+                String description = scanner.nextLine();
+
+                Task task = new Task(title, description);
+                manager.addTask(task);
+
+                System.out.println("Task added successfully!");
                 break;
 
             case 2:
                 manager.viewTasks();
                 break;
+            case 3:
+                System.out.print("Enter task index:");
+                int index = scanner.nextInt();
+                manager.completeTask(index);
+                System.out.println("Task completed successfully!");
+                break;
+            case 4:
+                System.out.print("Enter task index: ");
+                int deleteIndex = scanner.nextInt();
+
+                manager.deleteTask(deleteIndex);
+
+                System.out.println("Task deleted successfully!");
+                break;
+            case 5:
+                running = false;
+                System.out.println("Bye!");
+                break;
 
             default:
                 System.out.println("Invalid option");
+        }
         }
     }
 }
