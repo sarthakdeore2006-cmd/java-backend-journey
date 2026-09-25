@@ -17,11 +17,25 @@ public class TaskManager {
         }
     }
 
-    public void completeTask(int index) {
-        tasks.get(index).markComplete();
+    public boolean completeTask(int index) {
+
+        if (index >= 0 && index < tasks.size()) {
+            tasks.get(index).markComplete();
+            return true;
+        } else {
+            System.out.println("Invalid task index!");
+            return false;
+        }
     }
 
-    public void deleteTask(int index) {
-        tasks.remove(index);
+    public boolean deleteTask(int index) {
+
+        if (index >= 0 && index < tasks.size()) {
+            tasks.remove(index);
+            return true;
+        } else {
+            System.out.println("Invalid task index!");
+            return false;
+        }
     }
 }

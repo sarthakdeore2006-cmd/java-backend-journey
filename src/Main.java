@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.util.InputMismatchException;
 
 public class Main {
 
@@ -26,10 +27,19 @@ public class Main {
         System.out.println("==================================");
         System.out.print("Choose an option: ");
 
-        int choice = scanner.nextInt();
-        scanner.nextLine();
+            int choice;
 
-        switch (choice) {
+            try {
+                choice = scanner.nextInt();
+                scanner.nextLine();
+            }
+            catch (InputMismatchException e) {
+                System.out.println("Please enter a number!");
+                scanner.nextLine();
+                continue;
+            }
+
+            switch (choice) {
 
             case 1:
                 System.out.println("Enter task title:");
@@ -49,21 +59,22 @@ public class Main {
             case 3:
                 System.out.print("Enter task index:");
                 int index = scanner.nextInt();
-                manager.completeTask(index);
-                System.out.println("Task completed successfully!");
-                break;
-            case 4:
-                System.out.print("Enter task index: ");
-                int deleteIndex = scanner.nextInt();
+                boolean success = manager.completeTask(index);
 
-                manager.deleteTask(deleteIndex);
+                if (success) {
+                    System.out.println("Task completed successfully!");
+                }
+                break;
+                case 4:
+                    System.out.print("Enter task index: ");
+                    int deleteIndex = scanner.nextInt();
 
-                System.out.println("Task deleted successfully!");
-                break;
-            case 5:
-                running = false;
-                System.out.println("Bye!");
-                break;
+                    boolean deleted = manager.deleteTask(deleteIndex);
+
+                    if (deleted) {
+                        System.out.println("Task deleted successfully!");
+                    }
+                    break;
 
             default:
                 System.out.println("Invalid option");
